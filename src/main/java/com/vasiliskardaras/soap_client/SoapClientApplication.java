@@ -7,6 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 public class SoapClientApplication {
@@ -15,22 +18,5 @@ public class SoapClientApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SoapClientApplication.class, args);
-	}
-
-	@Bean
-	CommandLineRunner lookup(CountryClient countryClient) {
-		return args -> {
-			String country = "Spain";
-
-			if (args.length > 0) {
-				country = args[0];
-			}
-			GetCountryResponse response = countryClient.getCountry(country);
-			log.info(String.format("Requesting location for %s with capital: %s, population: %d, and currency: %s",
-					response.getCountry().getName(),
-					response.getCountry().getCapital(),
-					response.getCountry().getPopulation(),
-					response.getCountry().getCurrency()));
-		};
 	}
 }
